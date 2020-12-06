@@ -15,6 +15,8 @@ plt.style.use("dark_background")
 with open("scenarios.yaml") as f:
     scenario_list = yaml.load(f, Loader=yaml.FullLoader)
 
+start = date(2021, 1, 1)
+end = date(2024, 1, 1)
 
 data = {}
 for scenario in scenario_list:
@@ -23,14 +25,30 @@ for scenario in scenario_list:
         f"scenario_{name}/outputs/position.csv", index_col=[0], parse_dates=True
     )
     df.sort_index()
+    df = df[(df.index.date > start) & (df.index.date < end)]
     data[name] = df
 
 fig = plt.figure()
 for name, df in data.items():
-    plt.plot(df.index, df.cumulative, label=name)
+    if name == "medium":
+        plt.plot(df.index, df.cumulative, label=name)
+    else:
+        plt.plot(df.index, df.cumulative, "--", label=name)
+
+
+# plt.fill_between(
+#     data["low"]["cumulative"],
+#     data["low"]["cumulative"],
+#     data["high"]["cumulative"],
+# )
+
+# len(data["low"])
+# len(data["high"])
+
 
 plt.gca().yaxis.set_major_formatter(formatter)
-plt.legend()
-plt.xlim(date(2021, 1, 1), date(2024, 1, 1))
+
+# plt.xlim(date(2021, 1, 1), date(2024, 1, 1))
 fig.autofmt_xdate()
-plt.savefig("scenarios.png", dpi=300)
+plt.savefig("scenarios.png", dpi=300, transparent=True)
+plt.savefig("scenarios.pdf", dpi=300)

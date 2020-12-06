@@ -17,6 +17,7 @@ PILOTS = pd.DataFrame(loader("assumptions/pilots.yaml"))
 SUBSCRIPTIONS = pd.DataFrame(loader("assumptions/subscriptions.yaml"))
 RAISES = pd.DataFrame(loader("assumptions/raises.yaml"))
 STAFF = pd.DataFrame(loader("assumptions/staff.yaml"))
+OVERHEADS = pd.DataFrame(loader("assumptions/overheads.yaml"))
 ROLES = loader("assumptions/roles.yaml")
 MONTHS = pd.date_range(start="2021/01/01", periods=36, freq="M")
 
@@ -62,14 +63,33 @@ revenue["cumulative"] = revenue.value.cumsum()
 
 cost_list = []
 for month in MONTHS:
-    # remove duplicate entries (these indicate a change in a member's attributes)
-    active = STAFF.sort_values("start_date").drop_duplicates("id", keep="last")
-    active = active[month >= active.start_date]
-    for id_, role in zip(active.id, active.role):
-        base_cost = ROLES[role]["base"]
-        monthly_cost = base_cost / 12
+    # keep last entry that satisfies the month cutoff
+    active = (
+        STAFF[month >= STAFF.start_date]
+        .sort_values("start_date")
+        .drop_duplicates("id", keep="last")
+    )
+
+    for id_, role, fte in zip(active.id, active.role, active.fte):
+        overheads = ROLES["overheads"]
+        role_dict = ROLES["roles"]
+        base_cost = role_dict[role]["base"]
+        bonus = role_dict[role]["bonus"]
+        monthly_cost = (1 + bonus) * (1 + overheads) * base_cost * fte / 12
         record = {"month": month, "id": id_, "value": -monthly_cost}
         cost_list.append(record)
+
+    active_overheads = (
+        OVERHEADS[month >= OVERHEADS.start_date]
+        .sort_values("start_date")
+        .drop_duplicates("id", keep="last")
+    )
+
+    for id_, value in zip(active_overheads.id, active_overheads.value):
+        monthly_cost = value / 12
+        record = {"month": month, "id": id_, "value": -monthly_cost}
+        cost_list.append(record)
+
 
 costs = pd.DataFrame(cost_list).set_index("month")
 
@@ -81,8 +101,6 @@ position = pd.concat([revenue, costs], axis=0).drop(columns=["cumulative"]).sort
 position = position.groupby(position.index).sum()
 position["cumulative"] = position.value.cumsum()
 
-position.cumulative.plot()
-
 
 # visualisation
 fig = plt.figure()
@@ -93,6 +111,7 @@ plt.legend()
 plt.xlim(MONTHS[0], MONTHS[-1])
 fig.autofmt_xdate()
 plt.savefig("outputs/sources.png", dpi=300)
+plt.savefig("outputs/sources.pdf")
 
 
 fig = plt.figure()
@@ -102,6 +121,7 @@ plt.xlim(MONTHS[0], MONTHS[-1])
 plt.legend()
 fig.autofmt_xdate()
 plt.savefig("outputs/position.png", dpi=300)
+plt.savefig("outputs/position.pdf")
 
 # save data
 position.to_csv("outputs/position.csv")

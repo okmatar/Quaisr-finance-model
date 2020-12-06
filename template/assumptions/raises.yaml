@@ -1,3 +1,6 @@
 - id: seed
   start_date: 2021-03-01
   value: 700_000
+# - id: series_A
+#   start_date: 2023-12-01
+#   value: 3_000_000

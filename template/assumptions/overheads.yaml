@@ -1,0 +1,28 @@
+- id: legal
+  start_date: 2021-04-01
+  value: 30_000
+  value_type: yearly
+- id: legal
+  start_date: 2022-04-01
+  value: 10_000
+  value_type: yearly
+- id: travel_and_consumables
+  start_date: 2021-04-01
+  value: 40_000
+  value_type: yearly
+- id: cloud_infrastructure
+  start_date: 2021-04-01
+  value: 30_000
+  value_type: yearly
+
+# assume fully remote company
+
+# grow cloud infrastructure
+- id: cloud_infrastructure
+  start_date: 2022-01-01
+  value: 40_000
+  value_type: yearly
+- id: cloud_infrastructure
+  start_date: 2023-01-01
+  value: 60_000
+  value_type: yearly
