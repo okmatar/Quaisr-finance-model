@@ -49,7 +49,7 @@ revenue = pd.concat([df.set_index("months") for df in subscription_list], axis=0
 pilot_revenue = sources[sources.value_type == "once"].set_index("start_date")
 pilot_revenue.set_index(pd.to_datetime(pilot_revenue.index), inplace=True)
 
-raises = RAISES.set_index("start_date")
+raises = RAISES.set_index(pd.to_datetime(RAISES.start_date))
 revenue = pd.concat([revenue, pilot_revenue[["id", "value"]], raises], axis=0).drop(
     columns=["value_type"]
 )
