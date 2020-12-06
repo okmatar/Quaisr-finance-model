@@ -1,0 +1,5 @@
+# output folders
+scenario_*
+
+# plots
+scenarios.png

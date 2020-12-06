@@ -1,0 +1,15 @@
+- id: pg
+  start_date: 2020-12-01
+  duration_months: 3
+  value: 50_000
+  value_type: once
+- id: arup
+  start_date: 2021-02-01
+  duration_months: 3
+  value: 50_000
+  value_type: once
+- id: defence
+  start_date: 2021-05-01
+  duration_months: 3
+  value: 90_000
+  value_type: once

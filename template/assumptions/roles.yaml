@@ -1,0 +1,51 @@
+data_scientist:
+  base: 80_000
+  bonus: 0.1
+
+machine_learning_engineer:
+  base: 80_000
+  bonus: 0.1
+
+systems_developer:
+  base: 72_000
+  bonus: 0.1
+
+frontend_developer:
+  base: 60_000
+  bonus: 0.1
+
+ceo:
+  base: 110_000
+  bonus: 0.1
+
+coo:
+  base: 90_000
+  bonus: 0.1
+
+cto:
+  base: 90_000
+  bonus: 0.1
+
+cso:
+  base: 90_000
+  bonus: 0.1
+
+vp_sales:
+  base: 50_000
+  bonus: 0.3
+
+sales:
+  base: 30_000
+  bonus: 0.3
+
+customer_support_engineer:
+  base: 36_000
+  bonus: 0.1
+
+hr_comms_marketing:
+  base: 60_000
+  bonus: 0.1
+
+chair:
+  base: 30_000
+  bonus: 0.1

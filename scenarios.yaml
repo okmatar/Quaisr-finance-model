@@ -1,0 +1,47 @@
+- name: low
+  pilots:
+    count: 6
+    start_range:
+      - 2021-01-01
+      - 2022-06-01
+    value: 50_000
+    duration_months: 3
+  subscriptions:
+    count: 8
+    start_range:
+      - 2021-01-01
+      - 2024-01-01
+    value: 10_000
+    duration_months: 36
+
+- name: medium
+  pilots:
+    count: 5
+    start_range:
+      - 2021-01-01
+      - 2022-06-01
+    value: 50_000
+    duration_months: 3
+  subscriptions:
+    count: 6
+    start_range:
+      - 2021-01-01
+      - 2024-01-01
+    value: 8_000
+    duration_months: 36
+
+- name: high
+  pilots:
+    count: 4
+    start_range:
+      - 2021-01-01
+      - 2022-06-01
+    value: 50_000
+    duration_months: 3
+  subscriptions:
+    count: 4
+    start_range:
+      - 2021-01-01
+      - 2024-01-01
+    value: 8_000
+    duration_months: 36
