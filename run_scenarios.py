@@ -8,7 +8,7 @@ from datetime import date
 
 import yaml
 
-random.seed(30)
+# random.seed(30)
 
 
 def to_rundir(scenario):
@@ -24,6 +24,8 @@ def to_yaml(variable, fname):
 def write_pilots(run_dir, spec):
     pilot_list = []
     for i in range(spec["count"]):
+
+        # TODO: sample from more controlled distribution
         start_date = date.fromordinal(
             random.randrange(
                 spec["start_range"][0].toordinal(), spec["start_range"][1].toordinal()
@@ -44,6 +46,8 @@ def write_pilots(run_dir, spec):
 def write_subscriptions(run_dir, spec):
     subscription_list = []
     for i in range(spec["count"]):
+
+        # TODO: sample from more controlled distribution, increase density with time
         start_date = date.fromordinal(
             random.randrange(
                 spec["start_range"][0].toordinal(), spec["start_range"][1].toordinal()
