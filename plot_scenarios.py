@@ -24,7 +24,6 @@ for scenario in scenario_list:
     )
     df.sort_index()
     data[name] = df
-    print(df)
 
 fig = plt.figure()
 for name, df in data.items():

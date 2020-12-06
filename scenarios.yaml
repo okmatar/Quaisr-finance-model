@@ -1,4 +1,4 @@
-- name: low
+- name: high
   pilots:
     count: 6
     start_range:
@@ -30,7 +30,7 @@
     value: 8_000
     duration_months: 36
 
-- name: high
+- name: low
   pilots:
     count: 4
     start_range:
