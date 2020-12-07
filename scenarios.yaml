@@ -1,37 +1,5 @@
 - name: high
   pilots:
-    count: 10
-    start_range:
-      - 2021-01-01
-      - 2022-06-01
-    value: 50_000
-    duration_months: 3
-  subscriptions:
-    count: 45
-    start_range:
-      - 2021-01-01
-      - 2024-01-01
-    value: 6_000
-    duration_months: 36
-
-- name: medium
-  pilots:
-    count: 8
-    start_range:
-      - 2021-01-01
-      - 2022-06-01
-    value: 50_000
-    duration_months: 3
-  subscriptions:
-    count: 35
-    start_range:
-      - 2021-01-01
-      - 2024-01-01
-    value: 6_000
-    duration_months: 36
-
-- name: low
-  pilots:
     count: 6
     start_range:
       - 2021-01-01
@@ -39,9 +7,41 @@
     value: 50_000
     duration_months: 3
   subscriptions:
-    count: 30
+    count: 40
     start_range:
       - 2021-01-01
       - 2024-01-01
-    value: 6_000
+    value: 5_000
+    duration_months: 36
+
+- name: medium
+  pilots:
+    count: 4
+    start_range:
+      - 2021-01-01
+      - 2022-06-01
+    value: 50_000
+    duration_months: 3
+  subscriptions:
+    count: 36
+    start_range:
+      - 2021-01-01
+      - 2024-01-01
+    value: 5_000
+    duration_months: 36
+
+- name: low
+  pilots:
+    count: 2
+    start_range:
+      - 2021-01-01
+      - 2022-06-01
+    value: 50_000
+    duration_months: 3
+  subscriptions:
+    count: 32
+    start_range:
+      - 2021-01-01
+      - 2024-01-01
+    value: 5_000
     duration_months: 36
