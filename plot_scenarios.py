@@ -36,19 +36,8 @@ for name, df in data.items():
         plt.plot(df.index, df.cumulative, "--", label=name)
 
 
-# plt.fill_between(
-#     data["low"]["cumulative"],
-#     data["low"]["cumulative"],
-#     data["high"]["cumulative"],
-# )
-
-# len(data["low"])
-# len(data["high"])
-
-
 plt.gca().yaxis.set_major_formatter(formatter)
-
-# plt.xlim(date(2021, 1, 1), date(2024, 1, 1))
+plt.legend()
 fig.autofmt_xdate()
 plt.savefig("scenarios.png", dpi=300, transparent=True)
 plt.savefig("scenarios.pdf", dpi=300)
