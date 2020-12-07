@@ -2,98 +2,132 @@
 # repeated entries indicate changes in member attributes
 # for example a change in fte
 
-
 # 2021 starting team
-- id: lachlan
+
+- id: cto
   role: cto
+  who:
+    - lachlan
   start_date: 2021-04-01
   fte: 1
-- id: indranil
+
+# covers 3 to 4 pilots
+- id: cso
   role: cso
+  who:
+    - indranil
   start_date: 2021-04-01
-  fte: 0.5
-- id: omar
+  fte: 0.25
+
+- id: ceo
   role: ceo
+  who: 
+    - omar
   start_date: 2021-04-01
-  fte: 0.5
-- id: richard
+  fte: 0.2
+- id: coo
   role: coo
+  who:
+    - richard
+    - assen
   start_date: 2021-04-01
-  fte: 0.5
+  fte: 0.2
 - id: ashley
   role: chair
   start_date: 2021-04-01
-  fte: 1  # set fte as 1 due to contracted salary
+  fte: 1 # set fte as 1 due to contracted salary
 
 # grow technical team
-- id: sys_1
-  role: systems_developer
-  start_date: 2021-05-01
-  fte: 1
 - id: mle_1
   role: machine_learning_engineer
-  start_date: 2021-05-01
-  fte: 1
-- id: frontend_1
-  role: frontend_developer
+  who:
+    - hire
   start_date: 2021-05-01
   fte: 1
 
-# grow sales team
-- id: vp_sales
-  role: vp_sales
+# frontend developer takes on a comms load too
+- id: frontend_1
+  role: frontend_developer
+  who:
+    - hire
   start_date: 2021-05-01
   fte: 1
+
+# grow sales effort
+# has to cover product management
+- id: vp_sales
+  role: vp_sales
+  who:
+    - assen
+  start_date: 2021-10-01
+  fte: 0.5
+- id: coo
+  role: coo
+  who:
+    - richard
+    - assen
+  start_date: 2021-10-01
+  fte: 0.3
+
+# indranil increases fte in 2022
+# takes on load of customer support (once subscriptions increase)
+- id: cso
+  role: cso
+  who: 
+    - indranil
+  start_date: 2022-01-01
+  fte: 0.5
 
 - id: sales_1
   role: sales
-  start_date: 2021-08-01
+  who: 
+    - hire
+  start_date: 2022-10-01
   fte: 1
 
-# comms begins as part-time
-- id: general_1
-  role: hr_comms_marketing
-  start_date: 2021-06-01
-  fte: 0.5
 
-# support team
-- id: support_1
-  role: customer_support_engineer
-  start_date: 2021-04-01
-  fte: 0.5
+# # hire new ceo with Series A raise
+# - id: ceo
+#   role: ceo
+#   who: 
+#     - hire
+#   start_date: 2024-03-01
+#   fte: 1
 
-# 2022 increases in commitments
 
-# indranil increases fte in 2022
-- id: indranil
-  role: cso
-  start_date: 2022-01-01
-  fte: 1.0
-
-# omar increases fte in 2022
-- id: omar
-  role: ceo
-  start_date: 2022-04-01
-  fte: 0.8
-
+# only consider if we track on the high scenarios
+# not required on medium scenarios
+# additional pilot revenue will cover base cost
 # general cross-project data scientist
-- id: data_1
-  role: data_scientist
-  start_date: 2022-01-01
-  fte: 1
+# - id: data_1
+#   role: data_scientist
+#   who: 
+#     - hire
+#   start_date: 2022-01-01
+#   fte: 1
 
-# comms moves into full-time role
-- id: general_1
-  role: hr_comms_marketing
-  fte: 1.0
-  start_date: 2022-01-01
+# we can live with CTO, 1x ML engineer, 1x frontend
+# - id: sys_1
+# role: systems_developer
+# who:
+#   - hire
+# start_date: 2021-05-01
+# fte: 1
 
-# ramp up the support team
-- id: support_1
-  role: customer_support_engineer
-  start_date: 2022-01-01
-  fte: 1.0
-- id: support_2
-  role: customer_support_engineer
-  start_date: 2022-01-01
-  fte: 1.0
+# we can live with frontend developer takes on a comms load
+# # comms begins as part-time
+# - id: general_1
+#   role: hr_comms_marketing
+#   who: 
+#     - hire
+#   start_date: 2022-01-01
+#   fte: 0.5
+
+# initial support is provided by the tech team
+# # support team
+# - id: support_1
+#   role: customer_support_engineer
+#   who: 
+#     - hire
+#   start_date: 2021-04-01
+#   fte: 0.5

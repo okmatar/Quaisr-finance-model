@@ -1,6 +1,13 @@
-- id: seed
+# - id: seed
+#   start_date: 2021-03-01
+#   value: 1_400_000
+# - id: series_A
+#   start_date: 2024-03-01
+#   value: 3_000_000
+
+- id: seed_1
   start_date: 2021-03-01
   value: 700_000
-# - id: series_A
-#   start_date: 2023-12-01
-#   value: 3_000_000
+- id: seed_2
+  start_date: 2022-09-01
+  value: 700_000

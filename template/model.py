@@ -75,7 +75,7 @@ for month in MONTHS:
         role_dict = ROLES["roles"]
         base_cost = role_dict[role]["base"]
         bonus = role_dict[role]["bonus"]
-        monthly_cost = (1 + bonus) * (1 + overheads) * base_cost * fte / 12
+        monthly_cost = ((1 + overheads) * base_cost * fte + bonus * base_cost) / 12
         record = {"month": month, "id": id_, "value": -monthly_cost}
         cost_list.append(record)
 
@@ -98,7 +98,11 @@ costs["cumulative"] = costs.value.cumsum()
 
 position = pd.concat([revenue, costs], axis=0).drop(columns=["cumulative"]).sort_index()
 
-# TODO save the raw data as well
+# save raw data before we do any aggregation
+position_raw = position.copy()
+position_raw["cumulative"] = position_raw.value.cumsum()
+position_raw.to_csv("outputs/position_raw.csv")
+
 position = position.groupby(position.index).sum()
 position["cumulative"] = position.value.cumsum()
 

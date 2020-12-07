@@ -36,6 +36,8 @@ for name, df in data.items():
         plt.plot(df.index, df.cumulative, "--", label=name)
 
 
+plt.hlines(0, xmin=start, xmax=end, colors="red", linestyles="dashed")
+
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend()
 fig.autofmt_xdate()
