@@ -33,7 +33,7 @@
   start_date: 2021-04-01
   fte: 0.2
 - id: chair
-  role: chair;
+  role: chair
   who:
     - ashley
   start_date: 2021-04-01
