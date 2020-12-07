@@ -32,8 +32,10 @@
     - assen
   start_date: 2021-04-01
   fte: 0.2
-- id: ashley
-  role: chair
+- id: chair
+  role: chair;
+  who:
+    - ashley
   start_date: 2021-04-01
   fte: 1 # set fte as 1 due to contracted salary
 
