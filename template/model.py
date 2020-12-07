@@ -98,6 +98,7 @@ costs["cumulative"] = costs.value.cumsum()
 
 position = pd.concat([revenue, costs], axis=0).drop(columns=["cumulative"]).sort_index()
 
+# TODO save the raw data as well
 position = position.groupby(position.index).sum()
 position["cumulative"] = position.value.cumsum()
 
