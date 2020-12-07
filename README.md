@@ -10,3 +10,8 @@ pip install -r template/requirements.txt
 ./plot_scenarios.py
 ```
 
+If you're running this repeatedly, use:
+
+```
+make clean && make run
+```
