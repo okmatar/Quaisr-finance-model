@@ -5,3 +5,14 @@ scenario_*
 scenarios.png
 scenarios.pdf
 
+# python files
+*.pyc
+
+# Mac file
+.DS_Store
+
+# VS Code
+.vscode
+
+# pyenv
+.python-version
