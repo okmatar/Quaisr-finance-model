@@ -16,7 +16,7 @@ with open("scenarios.yaml") as f:
     scenario_list = yaml.load(f, Loader=yaml.FullLoader)
 
 start = date(2021, 1, 1)
-end = date(2024, 1, 1)
+end = date(2026, 1, 1)
 
 data = {}
 for scenario in scenario_list:

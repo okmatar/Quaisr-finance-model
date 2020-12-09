@@ -15,30 +15,43 @@ plt.style.use("dark_background")
 # load all assumptions
 PILOTS = pd.DataFrame(loader("assumptions/pilots.yaml"))
 SUBSCRIPTIONS = pd.DataFrame(loader("assumptions/subscriptions.yaml"))
+TIERS = loader("assumptions/tiers.yaml")
 RAISES = pd.DataFrame(loader("assumptions/raises.yaml"))
 STAFF = pd.DataFrame(loader("assumptions/staff.yaml"))
 OVERHEADS = pd.DataFrame(loader("assumptions/overheads.yaml"))
 ROLES = loader("assumptions/roles.yaml")
-MONTHS = pd.date_range(start="2021/01/01", periods=36, freq="M")
+
+TIMELINE = loader("assumptions/timeline.yaml")
+MONTHS = pd.date_range(start=TIMELINE["start"], end=TIMELINE["end"], freq="M")
+
 
 # summarise all revenue sources
 sources = pd.merge(SUBSCRIPTIONS, PILOTS, how="outer")
+
+
+def to_value(tier_name):
+    tier = list(filter(lambda x: x["id"] == tier_name, TIERS))
+    assert len(tier) == 1
+    return tier[0]["value"]
 
 
 # gather all subscription revenue
 subscription_list = []
 for i, row in sources[sources.value_type == "monthly"].iterrows():
     start_date = row["start_date"]
-    periods = row["duration_months"]
+    periods = row["total_duration_months"]
     value = row["value"]
     id_ = row["id"]
+    kind = row["kind"]
+    start_tier = row["start_tier"]
 
     df = pd.DataFrame(
         {
             "months": pd.date_range(start=start_date, periods=periods, freq="M"),
-            "value": value,
+            "value": to_value(start_tier),
             "id": id_,
             "value_type": "monthly",
+            "kind": kind,
         }
     )
     subscription_list.append(df)
@@ -49,11 +62,10 @@ revenue = pd.concat([df.set_index("months") for df in subscription_list], axis=0
 # merge in all pilot revenue and raises
 pilot_revenue = sources[sources.value_type == "once"].set_index("start_date")
 pilot_revenue.set_index(pd.to_datetime(pilot_revenue.index), inplace=True)
-
 raises = RAISES.set_index(pd.to_datetime(RAISES.start_date))
-revenue = pd.concat([revenue, pilot_revenue[["id", "value"]], raises], axis=0).drop(
-    columns=["value_type"]
-)
+revenue = pd.concat(
+    [revenue, pilot_revenue[["id", "value", "kind"]], raises], axis=0
+).drop(columns=["value_type"])
 
 # sort revenue by date
 revenue.sort_index(inplace=True)
@@ -76,7 +88,7 @@ for month in MONTHS:
         base_cost = role_dict[role]["base"]
         bonus = role_dict[role]["bonus"]
         monthly_cost = ((1 + overheads) * base_cost * fte + bonus * base_cost) / 12
-        record = {"month": month, "id": id_, "value": -monthly_cost}
+        record = {"month": month, "id": id_, "value": -monthly_cost, "kind": "salary"}
         cost_list.append(record)
 
     active_overheads = (
@@ -85,9 +97,11 @@ for month in MONTHS:
         .drop_duplicates("id", keep="last")
     )
 
-    for id_, value in zip(active_overheads.id, active_overheads.value):
+    for id_, value, kind in zip(
+        active_overheads.id, active_overheads.value, active_overheads.kind
+    ):
         monthly_cost = value / 12
-        record = {"month": month, "id": id_, "value": -monthly_cost}
+        record = {"month": month, "id": id_, "value": -monthly_cost, "kind": kind}
         cost_list.append(record)
 
 
@@ -105,28 +119,6 @@ position_raw.to_csv("outputs/position_raw.csv")
 
 position = position.groupby(position.index).sum()
 position["cumulative"] = position.value.cumsum()
-
-
-# visualisation
-fig = plt.figure()
-plt.plot(revenue.index, revenue.cumulative, label="revenue")
-plt.plot(costs.index, costs.cumulative, label="costs")
-plt.gca().yaxis.set_major_formatter(formatter)
-plt.legend()
-plt.xlim(MONTHS[0], MONTHS[-1])
-fig.autofmt_xdate()
-plt.savefig("outputs/sources.png", dpi=300)
-plt.savefig("outputs/sources.pdf")
-
-
-fig = plt.figure()
-plt.plot(position.index, position.cumulative, label="position")
-plt.gca().yaxis.set_major_formatter(formatter)
-plt.xlim(MONTHS[0], MONTHS[-1])
-plt.legend()
-fig.autofmt_xdate()
-plt.savefig("outputs/position.png", dpi=300)
-plt.savefig("outputs/position.pdf")
 
 # save data
 position.to_csv("outputs/position.csv")

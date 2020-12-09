@@ -1,20 +1,24 @@
-- id: pg
-  start_date: 2021-04-01
-  duration_months: 36
-  value: 10_000
+- id: subscription-auto-0
+  kind: subscription
+  start_date: '2021-01-26'
+  start_tier: low
+  total_duration_months: 48
   value_type: monthly
-- id: arup
-  start_date: 2021-08-01
-  duration_months: 36
-  value: 10_000
+- id: subscription-auto-1
+  kind: subscription
+  start_date: '2021-04-17'
+  start_tier: low
+  total_duration_months: 48
   value_type: monthly
-- id: placeholder_1
-  start_date: 2021-08-01
-  duration_months: 36
-  value: 10_000
+- id: subscription-auto-2
+  kind: subscription
+  start_date: '2023-06-15'
+  start_tier: low
+  total_duration_months: 48
   value_type: monthly
-- id: placeholder_2
-  start_date: 2021-08-01
-  duration_months: 36
-  value: 10_000
+- id: subscription-auto-3
+  kind: subscription
+  start_date: '2023-07-28'
+  start_tier: low
+  total_duration_months: 48
   value_type: monthly

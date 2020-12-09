@@ -1,0 +1,7 @@
+# based on seldon.io tiers
+- id: low
+  value: 2_000
+- id: medium
+  value: 5_000
+- id: high
+  value: 10_000

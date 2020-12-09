@@ -2,18 +2,22 @@
   start_date: 2021-04-01
   value: 30_000
   value_type: yearly
+  kind: overhead
 - id: legal
   start_date: 2022-04-01
   value: 10_000
   value_type: yearly
+  kind: overhead
 - id: travel_and_consumables
   start_date: 2021-04-01
   value: 30_000
   value_type: yearly
+  kind: overhead
 - id: cloud_infrastructure
   start_date: 2021-04-01
   value: 30_000
   value_type: yearly
+  kind: overhead
 
 # assume fully remote company
 
