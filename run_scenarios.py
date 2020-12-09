@@ -2,20 +2,22 @@
 
 import shutil
 import subprocess
-import random
+
 from datetime import date
+from typing import List
 
 
 import yaml
 import numpy as np
-import matplotlib.pyplot as plt
+from pydantic import parse_obj_as
+
+from template.schemas import Scenario, PilotSet, SubscriptionSet
 
 # random.seed(30)
 
 
 def to_rundir(scenario):
-    name = scenario["name"]
-    return f"scenario_{name}"
+    return f"scenario_{scenario.name}"
 
 
 def to_yaml(variable, fname):
@@ -23,83 +25,79 @@ def to_yaml(variable, fname):
         f.write(yaml.dump(variable))
 
 
-def write_pilots(run_dir, spec):
-    count = spec["count"]
-    pilot_list = []
+def date_range(start_range, spacing="uniform", count=1):
 
-    # method: beta distribution sampling
-    samples = np.sort(np.random.beta(a=1, b=6, size=count))
-    low_ordinal = spec["start_range"][0].toordinal()
-    high_ordinal = spec["start_range"][1].toordinal()
+    assert spacing in ["uniform", "early", "late"]
 
-    start_date_range = [
-        int(i) for i in low_ordinal + (high_ordinal - low_ordinal) * samples
+    samples = None
+    if spacing == "early":
+        #  method: left-weighted beta distribution sampling
+        samples = np.sort(np.random.beta(a=1, b=6, size=count))
+    elif spacing == "late":
+        #  method: right-weighted beta distribution sampling
+        samples = np.sort(np.random.beta(a=6, b=1, size=count))
+    elif spacing == "uniform":
+        #  method: uniform sampling
+        samples = np.sort(np.random.uniform(size=count))
+    assert samples is not None
+
+    low_ordinal = start_range[0].toordinal()
+    high_ordinal = start_range[1].toordinal()
+    date_list = [
+        date.fromordinal(int(i)).strftime("%Y-%m-%d")
+        for i in low_ordinal + (high_ordinal - low_ordinal) * samples
     ]
-    for i in range(count):
-        start_date = date.fromordinal(start_date_range[i]).strftime("%Y-%m-%d")
+    return date_list
 
+
+def write_pilot_set(run_dir, s: PilotSet):
+    pilot_list = []
+    start_date_range = date_range(s.start_range, spacing=s.spacing, count=s.count)
+    for i, start_date in enumerate(start_date_range):
         record = {
             "id": f"pilot-auto-{i}",
             "start_date": start_date,
-            "duration_months": spec["duration_months"],
-            "value": spec["value"],
+            "duration_months": s.duration_months,
+            "value": s.value,
             "value_type": "once",
+            "kind": "pilot",
         }
         pilot_list.append(record)
-
-    plt.figure()
-    plt.plot(start_date_range, np.zeros_like(start_date_range), "o")
-    plt.savefig(f"{run_dir}/outputs/ordinal_range_pilots.png")
-
     to_yaml(pilot_list, f"{run_dir}/assumptions/pilots.yaml")
 
 
-def write_subscriptions(run_dir, spec):
-    count = spec["count"]
+def write_subscription_set(run_dir, s: SubscriptionSet):
     subscription_list = []
+    start_date_range = date_range(s.start_range, spacing=s.spacing, count=s.count)
 
-    # method: beta distribution sampling
-    samples = np.sort(np.random.beta(a=6, b=1, size=count))
-    low_ordinal = spec["start_range"][0].toordinal()
-    high_ordinal = spec["start_range"][1].toordinal()
-
-    start_date_range = [
-        int(i) for i in low_ordinal + (high_ordinal - low_ordinal) * samples
-    ]
-
-    for i in range(count):
-        start_date = date.fromordinal(start_date_range[i]).strftime("%Y-%m-%d")
-
+    for i, start_date in enumerate(start_date_range):
         record = {
             "id": f"subscription-auto-{i}",
             "start_date": start_date,
-            "duration_months": spec["duration_months"],
-            "value": spec["value"],
+            "total_duration_months": s.total_duration_months,
+            "start_tier": s.start_tier,
             "value_type": "monthly",
+            "kind": "subscription",
         }
         subscription_list.append(record)
-
-    plt.figure()
-    plt.plot(start_date_range, np.zeros_like(start_date_range), "o")
-    plt.savefig(f"{run_dir}/outputs/ordinal_range_subscriptions.png")
-
     to_yaml(subscription_list, f"{run_dir}/assumptions/subscriptions.yaml")
 
 
 # load scenarios
 with open("scenarios.yaml") as f:
-    scenario_list = yaml.load(f, Loader=yaml.FullLoader)
+    scenario_list = parse_obj_as(List[Scenario], yaml.load(f, Loader=yaml.FullLoader))
 
-
-# template all assumptions
+# template all scenarios
 for scenario in scenario_list:
     run_dir = to_rundir(scenario)
     shutil.copytree("template", run_dir)
-    write_pilots(run_dir, spec=scenario["pilots"])
-    write_subscriptions(run_dir, spec=scenario["subscriptions"])
+    for pilot_set in scenario.pilot_sets:
+        write_pilot_set(run_dir, s=pilot_set)
+    for subscription_set in scenario.subscription_sets:
+        write_subscription_set(run_dir, s=subscription_set)
 
-
-# run all scenerios
-for spec in scenario_list:
-    print(spec)
-    subprocess.run("./model.py", cwd=to_rundir(spec))
+# run and visualise all scenerios
+for scenario in scenario_list:
+    print(scenario)
+    subprocess.run("./model.py", cwd=to_rundir(scenario))
+    subprocess.run("./plot_model.py", cwd=to_rundir(scenario))

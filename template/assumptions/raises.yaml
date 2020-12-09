@@ -6,8 +6,10 @@
 #   value: 3_000_000
 
 - id: seed_1
+  kind: raise
   start_date: 2021-03-01
   value: 700_000
 - id: seed_2
+  kind: raise
   start_date: 2022-09-01
   value: 700_000
