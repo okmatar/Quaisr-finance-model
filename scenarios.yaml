@@ -1,74 +1,134 @@
 - id: medium
-  name: medium
+  name: An example medium scenario
   pilot_sets:
     - id: early
-      count: 6
+      count: 4
       start_range:
         - 2021-01-01
-        - 2023-06-01
+        - 2021-08-01
       spacing: early
       value: 50_000
       duration_months: 3
       conversion:
         fraction: 0.8
-        start_tier: low
+        start_tier: medium
+    - id: late
+      count: 4
+      start_range:
+        - 2022-01-01
+        - 2023-01-01
+      spacing: early
+      value: 50_000
+      duration_months: 3
+      conversion:
+        fraction: 0.8
+        start_tier: medium
   subscription_sets:
-    - id: development
+    - id: from_pilots
       count: 4
       start_range:
         - 2021-01-01
+        - 2022-06-01
+      spacing: late
+      start_tier: medium
+      upgrade_period_months: 18
+      total_duration_months: 48
+    - id: from_sales
+      count: 20
+      start_range:
+        - 2021-01-01
         - 2024-01-01
-      spacing: uniform
+      spacing: late
       start_tier: low
       upgrade_period_months: 18
       total_duration_months: 48
 
 - id: high
-  name: high
+  name: An example high scenario
   pilot_sets:
     - id: early
-      count: 8
+      count: 6
       start_range:
         - 2021-01-01
-        - 2023-06-01
+        - 2021-08-01
       spacing: early
       value: 50_000
       duration_months: 3
       conversion:
         fraction: 0.8
-        start_tier: high
+        start_tier: medium
+    - id: late
+      count: 6
+      start_range:
+        - 2022-01-01
+        - 2023-01-01
+      spacing: early
+      value: 50_000
+      duration_months: 3
+      conversion:
+        fraction: 0.8
+        start_tier: medium
   subscription_sets:
-    - id: development
-      count: 8
+    - id: from_pilots
+      count: 6
       start_range:
         - 2021-01-01
-        - 2026-01-01
-      spacing: uniform
+        - 2022-06-01
+      spacing: late
+      start_tier: medium
+      upgrade_period_months: 18
+      total_duration_months: 48
+    - id: from_sales
+      count: 20
+      start_range:
+        - 2021-01-01
+        - 2024-01-01
+      spacing: late
       start_tier: medium
       upgrade_period_months: 18
       total_duration_months: 48
 
 - id: low
-  name: low
+  name: An example low scenario
   pilot_sets:
     - id: early
       count: 3
       start_range:
         - 2021-01-01
-        - 2023-06-01
+        - 2021-08-01
       spacing: early
       value: 50_000
       duration_months: 3
       conversion:
         fraction: 0.8
-        start_tier: low
+        start_tier: medium
+    - id: late
+      count: 3
+      start_range:
+        - 2022-01-01
+        - 2023-01-01
+      spacing: early
+      value: 50_000
+      duration_months: 3
+      conversion:
+        fraction: 0.8
+        start_tier: medium
   subscription_sets:
-    - id: development
-      count: 2
+    - id: from_pilots
+      count: 3
+      start_range:
+        - 2021-01-01
+        - 2022-06-01
+      spacing: late
+      start_tier: medium
+      upgrade_period_months: 18
+      total_duration_months: 48
+    - id: from_sales
+      count: 10
       start_range:
         - 2021-01-01
         - 2024-01-01
-      spacing: uniform
-      start_tier: low
+      spacing: late
+      start_tier: medium
       upgrade_period_months: 18
       total_duration_months: 48

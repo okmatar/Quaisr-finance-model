@@ -1,9 +1,4 @@
-# - id: seed
-#   start_date: 2021-03-01
-#   value: 1_400_000
-# - id: series_A
-#   start_date: 2024-03-01
-#   value: 3_000_000
+# DO NOT EDIT: will be templated by higher-level scripts
 
 - id: seed_1
   kind: raise

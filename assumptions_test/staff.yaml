@@ -1,0 +1,6 @@
+- id: ceo
+  role: ceo
+  who: 
+    - omar
+  start_date: 2021-04-01
+  fte: 0.8

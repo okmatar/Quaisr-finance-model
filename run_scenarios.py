@@ -1,21 +1,40 @@
 #!/usr/bin/env python
 
+import logging
 import shutil
 import subprocess
+<<<<<<< HEAD
+=======
 
 from datetime import date
 from typing import List
+>>>>>>> master
 
+from util import write_pilot_set, write_subscription_set, to_rundir, load_scenarios
 
+<<<<<<< HEAD
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+=======
 import yaml
 import numpy as np
 from pydantic import parse_obj_as
 
 from template.schemas import Scenario, PilotSet, SubscriptionSet
+>>>>>>> master
 
 # random.seed(30)
+scenario_list = load_scenarios("scenarios.yaml")
 
+# template all scenarios
+for scenario in scenario_list:
+    shutil.copytree("template", to_rundir(scenario))
 
+<<<<<<< HEAD
+    # remove the default (template) assumptions
+    shutil.rmtree(f"{to_rundir(scenario)}/assumptions")
+=======
 def to_rundir(scenario):
     return f"scenario_{scenario.name}"
 
@@ -81,8 +100,25 @@ def write_subscription_set(run_dir, s: SubscriptionSet):
         }
         subscription_list.append(record)
     to_yaml(subscription_list, f"{run_dir}/assumptions/subscriptions.yaml")
+>>>>>>> master
 
+    # add the top-level common assumptions
+    shutil.copytree("assumptions", f"{to_rundir(scenario)}/assumptions")
 
+<<<<<<< HEAD
+    # clear pilots and subscriptions
+    open(f"{to_rundir(scenario)}/assumptions/pilots.yaml", "w").close()
+    open(f"{to_rundir(scenario)}/assumptions/subscriptions.yaml", "w").close()
+
+    for pilot_set in scenario.pilot_sets:
+        write_pilot_set(to_rundir(scenario), s=pilot_set)
+    for subscription_set in scenario.subscription_sets:
+        write_subscription_set(to_rundir(scenario), s=subscription_set)
+
+# run and visualise all scenerios
+for scenario in scenario_list:
+    logger.info(f"running scenario {scenario.id}")
+=======
 # load scenarios
 with open("scenarios.yaml") as f:
     scenario_list = parse_obj_as(List[Scenario], yaml.load(f, Loader=yaml.FullLoader))
@@ -99,5 +135,6 @@ for scenario in scenario_list:
 # run and visualise all scenerios
 for scenario in scenario_list:
     print(scenario)
+>>>>>>> master
     subprocess.run("./model.py", cwd=to_rundir(scenario))
     subprocess.run("./plot_model.py", cwd=to_rundir(scenario))
