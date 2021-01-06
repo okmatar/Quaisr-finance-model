@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 # DO NOT EDIT: will be templated by higher-level scripts
 
-=======
->>>>>>> master
 # based on seldon.io tiers
 - id: low
   value: 2_000
