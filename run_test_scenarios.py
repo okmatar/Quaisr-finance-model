@@ -10,6 +10,10 @@ import pandas as pd
 
 from util import write_pilot_set, write_subscription_set, to_rundir, load_scenarios
 
+# from template.util import loader
+# loader("assumptions/pilots.yaml")
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

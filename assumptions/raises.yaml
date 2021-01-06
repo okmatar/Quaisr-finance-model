@@ -2,3 +2,4 @@
   kind: raise
   start_date: 2021-03-01
   value: 700_000
+  value_type: once

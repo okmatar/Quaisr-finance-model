@@ -1,24 +1,2 @@
-- id: subscription-auto-0
-  kind: subscription
-  start_date: '2021-01-26'
-  start_tier: low
-  total_duration_months: 48
-  value_type: monthly
-- id: subscription-auto-1
-  kind: subscription
-  start_date: '2021-04-17'
-  start_tier: low
-  total_duration_months: 48
-  value_type: monthly
-- id: subscription-auto-2
-  kind: subscription
-  start_date: '2023-06-15'
-  start_tier: low
-  total_duration_months: 48
-  value_type: monthly
-- id: subscription-auto-3
-  kind: subscription
-  start_date: '2023-07-28'
-  start_tier: low
-  total_duration_months: 48
-  value_type: monthly
+# DO NOT EDIT: this file is pre-filled by run_scenarios.py
+
