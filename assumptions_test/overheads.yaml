@@ -1,0 +1,5 @@
+- id: legal
+  start_date: 2023-04-01
+  value: 50_000
+  value_type: yearly
+  kind: overhead

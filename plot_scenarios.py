@@ -20,13 +20,13 @@ end = date(2026, 1, 1)
 
 data = {}
 for scenario in scenario_list:
-    name = scenario["name"]
+    id_ = scenario["id"]
     df = pd.read_csv(
-        f"scenario_{name}/outputs/position.csv", index_col=[0], parse_dates=True
+        f"scenario_{id_}/outputs/position.csv", index_col=[0], parse_dates=True
     )
     df.sort_index()
     df = df[(df.index.date > start) & (df.index.date < end)]
-    data[name] = df
+    data[id_] = df
 
 fig = plt.figure()
 for name, df in data.items():
@@ -36,7 +36,7 @@ for name, df in data.items():
         plt.plot(df.index, df.cumulative, "--", label=name)
 
 
-plt.hlines(0, xmin=start, xmax=end, colors="red", linestyles="dashed")
+plt.hlines(0, xmin=start, xmax=end, colors="red", linestyles="dashed", linewidth=0.5)
 
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend()

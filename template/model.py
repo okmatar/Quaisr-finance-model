@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 
 
-import datetime
-
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from util import loader, formatter
+from util import loader
 
 
 plt.style.use("dark_background")
-
 
 # load all assumptions
 PILOTS = pd.DataFrame(loader("assumptions/pilots.yaml"))

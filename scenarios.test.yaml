@@ -1,0 +1,24 @@
+- id: test
+  name: test name goes here
+  pilot_sets:
+    - id: test
+      count: 1
+      start_range:
+        - 2021-01-01
+        - 2021-01-01
+      spacing: uniform
+      value: 50_000
+      duration_months: 3
+      conversion:
+        fraction: 0.8
+        start_tier: low
+  subscription_sets:
+    - id: baz
+      count: 1
+      start_range:
+        - 2022-06-01
+        - 2022-06-01
+      spacing: uniform
+      start_tier: low
+      upgrade_period_months: 18
+      total_duration_months: 48
