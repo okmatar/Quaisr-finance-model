@@ -70,6 +70,14 @@ revenue.sort_index(inplace=True)
 # determine the cumulative revenue
 revenue["cumulative"] = revenue.value.cumsum()
 
+# determine the annual run rate
+# select all subscription revenue
+monthly_recurring_revenue = (
+    revenue[revenue.kind == "subscription"]["value"].resample("M").sum()
+)
+annual_run_rate = 12 * monthly_recurring_revenue
+annual_run_rate = annual_run_rate.reindex(MONTHS, fill_value=0)
+
 cost_list = []
 for month in MONTHS:
     # keep last entry that satisfies the month cutoff
@@ -104,6 +112,8 @@ for month in MONTHS:
 
 costs = pd.DataFrame(cost_list).set_index("month")
 
+# determine the annual burn rate
+# this is the annualised change in total cash position
 # determine the cumulative costs
 costs["cumulative"] = costs.value.cumsum()
 
@@ -117,7 +127,13 @@ position_raw.to_csv("outputs/position_raw.csv")
 position = position.groupby(position.index).sum()
 position["cumulative"] = position.value.cumsum()
 
+monthly_burn_rate = position["value"]
+annual_burn_rate = 12 * monthly_burn_rate
+
+
 # save data
 position.to_csv("outputs/position.csv")
 revenue.to_csv("outputs/revenue.csv")
 costs.to_csv("outputs/costs.csv")
+annual_run_rate.to_csv("outputs/annual_run_rate.csv")
+annual_burn_rate.to_csv("outputs/annual_burn_rate.csv")
