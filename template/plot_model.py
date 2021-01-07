@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 from util import loader, formatter
 
@@ -20,6 +21,9 @@ start, end = MONTHS[0], MONTHS[-1]
 revenue = pd.read_csv("./outputs/revenue.csv", index_col=0, parse_dates=True)
 costs = pd.read_csv("./outputs/costs.csv", index_col=0, parse_dates=True)
 position = pd.read_csv("./outputs/position.csv", index_col=0, parse_dates=True)
+burn_rate = pd.read_csv("./outputs/annual_burn_rate.csv", index_col=0, parse_dates=True)
+run_rate = pd.read_csv("./outputs/annual_run_rate.csv", index_col=0, parse_dates=True)
+
 
 # visualisation
 fig = plt.figure()
@@ -31,6 +35,26 @@ plt.xlim(start, end)
 fig.autofmt_xdate()
 plt.savefig("outputs/sources.png", dpi=300)
 plt.savefig("outputs/sources.pdf")
+
+
+fig = plt.figure()
+plt.plot(burn_rate.index, burn_rate.value, label="annual burn rate")
+plt.gca().yaxis.set_major_formatter(formatter)
+plt.legend()
+plt.xlim(start, end)
+fig.autofmt_xdate()
+plt.savefig("outputs/annual_burn_rate.png", dpi=300)
+plt.savefig("outputs/annual_burn_rate.pdf")
+
+fig = plt.figure()
+plt.plot(run_rate.index, run_rate.value, label="annual run rate")
+plt.gca().yaxis.set_major_formatter(formatter)
+plt.legend()
+plt.xlim(start, end)
+fig.autofmt_xdate()
+plt.savefig("outputs/annual_run_rate.png", dpi=300)
+plt.savefig("outputs/annual_run_rate.pdf")
+
 
 # %%
 
@@ -59,7 +83,7 @@ for i, row in revenue[revenue.kind == "raise"].iterrows():
     timestamp = row.name
     content = row.kind
     # lookup position at given date
-    cash_position = position.loc[timestamp.date()].cumulative
+    cash_position = position.loc[np.datetime64(timestamp.date())].cumulative
     annotate(timestamp, cash_position, content)
 
 # annotate pilots
@@ -68,7 +92,7 @@ for i, row in revenue[revenue.kind == "pilot"].iterrows():
     # content = f"{row.kind}:{row.id}"
     content = f"p"
     # lookup position at given date
-    cash_position = position.loc[timestamp.date()].cumulative
+    cash_position = position.loc[np.datetime64(timestamp.date())].cumulative
     annotate(timestamp, cash_position, content)
 
 # annotate subscriptions
@@ -81,7 +105,7 @@ for i, row in subscriptions.iterrows():
     # content = f"{row.kind}"
     content = f"s"
     # lookup position at given date
-    cash_position = position.loc[timestamp.date()].cumulative
+    cash_position = position.loc[np.datetime64(timestamp.date())].cumulative
     annotate(timestamp, cash_position, content)
 
 years = mdates.YearLocator()

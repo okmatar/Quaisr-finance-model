@@ -22,3 +22,12 @@
       start_tier: low
       upgrade_period_months: 18
       total_duration_months: 48
+    - id: bar
+      count: 1
+      start_range:
+        - 2022-06-01
+        - 2022-06-01
+      spacing: uniform
+      start_tier: low
+      upgrade_period_months: 18
+      total_duration_months: 48
