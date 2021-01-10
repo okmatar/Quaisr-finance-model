@@ -12,6 +12,8 @@ import numpy as np
 
 from util import loader, formatter
 
+from IPython import embed
+
 plt.style.use("dark_background")
 
 TIMELINE = loader("assumptions/timeline.yaml")
@@ -103,10 +105,14 @@ for i, row in subscriptions.iterrows():
     timestamp = row.name
     # content = f"{row.kind}:{row.id}"
     # content = f"{row.kind}"
-    content = f"s"
+    if row.converted_pilot:
+        content = f"c"
+    else:
+        content = f"s"
     # lookup position at given date
     cash_position = position.loc[np.datetime64(timestamp.date())].cumulative
     annotate(timestamp, cash_position, content)
+
 
 years = mdates.YearLocator()
 plt.gca().xaxis.set_major_locator(years)

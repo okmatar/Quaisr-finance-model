@@ -12,9 +12,8 @@ from template.schemas import PilotSet, SubscriptionSet
 
 def load_scenarios(fname):
     with open(fname) as f:
-        scenario_list = parse_obj_as(
-            List[Scenario], yaml.load(f, Loader=yaml.FullLoader)
-        )
+        content = yaml.load(f, Loader=yaml.FullLoader)
+        scenario_list = parse_obj_as(List[Scenario], content)
     return scenario_list
 
 
@@ -53,30 +52,39 @@ def date_range(start_range, spacing="uniform", count=1):
 
 
 def write_pilot_set(run_dir, s: PilotSet):
+    if s.count == 0:
+        return
     pilot_list = []
     start_date_range = date_range(s.start_range, spacing=s.spacing, count=s.count)
     for i, start_date in enumerate(start_date_range):
         record = {
-            "id": f"pilot-auto-{i}",
+            "id": f"{s.id}-{i}",
             "start_date": start_date,
-            "duration_months": s.duration_months,
+            "pilot_duration_months": s.pilot_duration_months,
             "value": s.value,
             "value_type": "once",
             "kind": "pilot",
+            "conversion": {
+                "start_tier": s.conversion.start_tier,
+                "fraction": s.conversion.fraction,
+                "subscription_duration_months": s.conversion.subscription_duration_months,
+            },
         }
         pilot_list.append(record)
     to_yaml(pilot_list, f"{run_dir}/assumptions/pilots.yaml", append=True)
 
 
 def write_subscription_set(run_dir, s: SubscriptionSet):
+    if s.count == 0:
+        return
     subscription_list = []
     start_date_range = date_range(s.start_range, spacing=s.spacing, count=s.count)
 
     for i, start_date in enumerate(start_date_range):
         record = {
-            "id": f"subscription-auto-{i}",
+            "id": f"{s.id}-{i}",
             "start_date": start_date,
-            "total_duration_months": s.total_duration_months,
+            "subscription_duration_months": s.subscription_duration_months,
             "start_tier": s.start_tier,
             "value_type": "monthly",
             "kind": "subscription",
