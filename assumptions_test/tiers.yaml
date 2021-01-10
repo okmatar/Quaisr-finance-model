@@ -1,7 +1,9 @@
 # based on seldon.io tiers
 - id: low
   value: 2_000
+  upgrade_after_months: 12
 - id: medium
   value: 5_000
+  upgrade_after_months: 12
 - id: high
   value: 10_000

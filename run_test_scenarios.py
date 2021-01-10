@@ -10,6 +10,7 @@ import pandas as pd
 
 from util import write_pilot_set, write_subscription_set, to_rundir, load_scenarios
 
+from IPython import embed
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -48,8 +49,9 @@ revenue = pd.read_csv(f"{TEST_DIR}/outputs/revenue.csv", index_col=0, parse_date
 # TEST: check that one of the pilots got created
 # extract input information
 date_range = scenario_list[0].pilot_sets[0].start_range
+
 # extract output information
-start_date = revenue[revenue.id == "pilot-auto-0"].index[0].date()
+start_date = revenue[revenue.id == "test-0"].index[0].date()
 assert date_range[0] <= start_date
 assert start_date <= date_range[1]
 
@@ -59,10 +61,7 @@ assert start_date <= date_range[1]
 date_range = scenario_list[0].subscription_sets[0].start_range
 # extract output information
 start_date = (
-    revenue[revenue.id == "subscription-auto-0"]
-    .drop_duplicates("id", keep="first")
-    .index[0]
-    .date()
+    revenue[revenue.id == "baz-0"].drop_duplicates("id", keep="first").index[0].date()
 )
 # we're using pd.date_range(..., freq="M") to model all revenue
 # arriving at the end of each month

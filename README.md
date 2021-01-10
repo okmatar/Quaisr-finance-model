@@ -107,6 +107,8 @@ These are assumptions that are specific to each scenario.
         conversion:
           fraction: 0.8
           start_tier: medium
+          subscription_duration_months: 96
+          value_type: monthly
       - id: late
         count: 4
         start_range:
@@ -117,13 +119,15 @@ These are assumptions that are specific to each scenario.
         duration_months: 3
         conversion:
           fraction: 0.8
-          start_tier: medium
+        start_tier: medium
+          subscription_duration_months: 96
+        value_type: monthly
   ```
 
   Here, we'd have 4 pilots in the first set and another 4 in the second (making a total of 8 pilots). Sets allow us to use time ranges, so for the early set above its 4 pilots will occur between 2021-01-01 and 2021-08-01 with a bias towards placing the pilots early on within that time range. A fraction of the pilots can be automatically converted to subscriptions using the conversion `fraction` assumption.
-
+  
   Subscriptions can be similarly defined in sets, for example to create two sets of subscriptions, use:
-
+  
   ```yaml
   subscription_sets:
     - id: from_pilots
@@ -133,8 +137,7 @@ These are assumptions that are specific to each scenario.
         - 2022-06-01
       spacing: late
       start_tier: medium
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 48
     - id: from_sales
       count: 20
       start_range:
@@ -142,8 +145,20 @@ These are assumptions that are specific to each scenario.
         - 2024-01-01
       spacing: late
       start_tier: low
-      upgrade_period_months: 18
-      total_duration_months: 48
+    subscription_duration_months: 48
   ```
-
-  Subscriptions begin at the pricing specified by the `start_tier` field, before increasing to the next highest tier after a period of `upgrade_period_months` months. ⚠️ Not yet implemented!
+  
+  Subscriptions begin at the pricing specified by the `start_tier` field, before increasing to the next highest tier after a period of `upgrade_after_months` months set in `assumptions/tiers.yaml`:
+  
+  ```yaml
+  - id: low
+    value: 2_000
+    upgrade_after_months: 12
+  - id: medium
+    value: 5_000
+    upgrade_after_months: 12
+  - id: high
+    value: 10_000
+  ```
+  
+  

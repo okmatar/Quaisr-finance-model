@@ -8,26 +8,26 @@
         - 2021-01-01
       spacing: uniform
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: low
+        subscription_duration_months: 96
+        value_type: monthly
   subscription_sets:
     - id: baz
-      count: 1
+      count: 2
       start_range:
         - 2022-06-01
-        - 2022-06-01
+        - 2022-08-01
       spacing: uniform
       start_tier: low
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
     - id: bar
-      count: 1
+      count: 3
       start_range:
-        - 2022-06-01
-        - 2022-06-01
+        - 2023-07-01
+        - 2023-10-01
       spacing: uniform
       start_tier: low
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96

@@ -5,8 +5,9 @@ from typing import List
 
 
 class Conversion(BaseModel):
-    fraction: int
+    fraction: float
     start_tier: str
+    subscription_duration_months: int
 
 
 class PilotSet(BaseModel):
@@ -15,7 +16,7 @@ class PilotSet(BaseModel):
     start_range: List[date]
     spacing: str
     value: int
-    duration_months: int
+    pilot_duration_months: int
     conversion: Conversion
 
 
@@ -25,8 +26,7 @@ class SubscriptionSet(BaseModel):
     start_range: List[date]
     spacing: str
     start_tier: str
-    upgrade_period_months: int
-    total_duration_months: int
+    subscription_duration_months: int
 
 
 class Scenario(BaseModel):

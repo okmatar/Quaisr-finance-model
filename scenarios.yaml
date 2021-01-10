@@ -8,10 +8,12 @@
         - 2021-08-01
       spacing: early
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: medium
+        subscription_duration_months: 96
+        value_type: monthly
     - id: late
       count: 4
       start_range:
@@ -19,10 +21,12 @@
         - 2023-01-01
       spacing: early
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: medium
+        subscription_duration_months: 96
+        value_type: monthly
   subscription_sets:
     - id: from_pilots
       count: 4
@@ -31,8 +35,7 @@
         - 2022-06-01
       spacing: late
       start_tier: medium
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
     - id: from_sales
       count: 20
       start_range:
@@ -40,8 +43,7 @@
         - 2024-01-01
       spacing: late
       start_tier: low
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
 
 - id: high
   name: An example high scenario
@@ -53,10 +55,12 @@
         - 2021-08-01
       spacing: early
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: medium
+        subscription_duration_months: 96
+        value_type: monthly
     - id: late
       count: 6
       start_range:
@@ -64,10 +68,12 @@
         - 2023-01-01
       spacing: early
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: medium
+        subscription_duration_months: 96
+        value_type: monthly
   subscription_sets:
     - id: from_pilots
       count: 6
@@ -76,8 +82,7 @@
         - 2022-06-01
       spacing: late
       start_tier: medium
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
     - id: from_sales
       count: 20
       start_range:
@@ -85,8 +90,7 @@
         - 2024-01-01
       spacing: late
       start_tier: medium
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
 
 - id: low
   name: An example low scenario
@@ -98,10 +102,12 @@
         - 2021-08-01
       spacing: early
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: medium
+        subscription_duration_months: 96
+        value_type: monthly
     - id: late
       count: 3
       start_range:
@@ -109,10 +115,12 @@
         - 2023-01-01
       spacing: early
       value: 50_000
-      duration_months: 3
+      pilot_duration_months: 3
       conversion:
         fraction: 0.8
         start_tier: medium
+        subscription_duration_months: 96
+        value_type: monthly
   subscription_sets:
     - id: from_pilots
       count: 3
@@ -121,8 +129,7 @@
         - 2022-06-01
       spacing: late
       start_tier: medium
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
     - id: from_sales
       count: 10
       start_range:
@@ -130,5 +137,4 @@
         - 2024-01-01
       spacing: late
       start_tier: medium
-      upgrade_period_months: 18
-      total_duration_months: 48
+      subscription_duration_months: 96
