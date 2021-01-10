@@ -10,7 +10,6 @@ import pandas as pd
 
 from util import write_pilot_set, write_subscription_set, to_rundir, load_scenarios
 
-from IPython import embed
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -5,7 +5,6 @@ import random
 import matplotlib.pyplot as plt
 import pandas as pd
 import pendulum
-from IPython import embed
 
 from util import loader
 

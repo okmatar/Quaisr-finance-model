@@ -12,7 +12,6 @@ import numpy as np
 
 from util import loader, formatter
 
-from IPython import embed
 
 plt.style.use("dark_background")
 
