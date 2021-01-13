@@ -1,10 +1,10 @@
 from datetime import date
 from typing import List
 
-
 import yaml
 import numpy as np
 from pydantic import parse_obj_as
+import scipy.stats as st
 
 from template.schemas import Scenario
 from template.schemas import PilotSet, SubscriptionSet
@@ -26,6 +26,22 @@ def to_yaml(variable, fname, append=True):
         f.write(yaml.dump(variable))
 
 
+# https://www.wolframalpha.com/input/?i=integrate+1.6+*+x+%2B+0.2+from+0+to+1
+class late_pdf(st.rv_continuous):
+    def _pdf(self, x):
+        return 1.8 * x + 0.2  # Normalized over its range, in this case [0,1]
+
+
+# https://www.wolframalpha.com/input/?i=integrate+-1.6x%2B1.8+from+0+to+1
+class early_pdf(st.rv_continuous):
+    def _pdf(self, x):
+        return -1.6 * x + 1.8  # Normalized over its range, in this case [0,1]
+
+
+late_cv = late_pdf(a=0, b=1, name="late")
+early_cv = early_pdf(a=0, b=1, name="early")
+
+
 def date_range(start_range, spacing="uniform", count=1):
 
     assert spacing in ["uniform", "early", "late"]
@@ -33,10 +49,12 @@ def date_range(start_range, spacing="uniform", count=1):
     samples = None
     if spacing == "early":
         #  method: left-weighted beta distribution sampling
-        samples = np.sort(np.random.beta(a=1, b=6, size=count))
+        # samples = np.sort(np.random.beta(a=1, b=6, size=count))
+        samples = np.sort(early_cv.rvs(size=count))
     elif spacing == "late":
         #  method: right-weighted beta distribution sampling
-        samples = np.sort(np.random.beta(a=6, b=1, size=count))
+        # samples = np.sort(np.random.beta(a=6, b=1, size=count))
+        samples = np.sort(late_cv.rvs(size=count))
     elif spacing == "uniform":
         #  method: uniform sampling
         samples = np.sort(np.random.uniform(size=count))
