@@ -1,8 +1,11 @@
+# initial Seed raise in Q1 2021
 - id: seed_1
   kind: raise
   start_date: 2021-03-01
   value: 700_000
   value_type: once
+
+# Series A raise after 36 months of operations
 - id: series_A
   kind: raise
   start_date: 2024-04-01

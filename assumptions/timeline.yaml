@@ -1,7 +1,13 @@
-# five-year plan
+# We set the start and end periods for the model here.
+# Let's consider a 5-year plan loosely based around these timings.
+
+# At 2021-04-01 => Seed raise will occur
+
+# At 2022-10-01 => Product development will be complete, 
+# i.e. there will be shift of focus from pilots to subscriptions
+
+# At 2024-04-01 => Series A raise will occur
+
 start: 2021/01/01
 end: 2026/01/01
 
-# At 2021-04-01 => seed
-# At 2022-10-01 => end of development push
-# At 2024-04-01 => Series A
