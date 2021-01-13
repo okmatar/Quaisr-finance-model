@@ -11,7 +11,7 @@
   start_date: 2021-04-01
   fte: 1
 
-# covers 3 to 4 pilots
+# CSO role covers 4 initial pilots
 - id: cso
   role: cso
   who:
@@ -25,6 +25,7 @@
     - omar
   start_date: 2021-04-01
   fte: 0.2
+
 - id: coo
   role: coo
   who:
@@ -32,6 +33,7 @@
     - assen
   start_date: 2021-04-01
   fte: 0.2
+
 - id: chair
   role: chair
   who:
@@ -47,7 +49,7 @@
   start_date: 2021-05-01
   fte: 1
 
-# frontend developer takes on a comms load too
+# frontend developer takes on a communications load too
 - id: frontend_1
   role: frontend_developer
   who:
@@ -63,6 +65,7 @@
     - assen
   start_date: 2021-10-01
   fte: 0.5
+
 - id: coo
   role: coo
   who:
@@ -87,14 +90,43 @@
   start_date: 2022-10-01
   fte: 1
 
+- id: sales_2
+  role: sales
+  who: 
+    - hire
+  start_date: 2023-02-01
+  fte: 1
 
-# # hire new ceo with Series A raise
-# - id: ceo
-#   role: ceo
-#   who: 
-#     - hire
-#   start_date: 2024-03-01
-#   fte: 1
+# hire new ceo with Series A raise
+- id: ceo
+  role: ceo
+  who: 
+    - hire
+  start_date: 2024-04-01
+  fte: 1
+
+# expand technical team
+- id: mle_2
+  role: machine_learning_engineer
+  who:
+    - hire
+  start_date: 2024-04-01
+  fte: 1
+
+# frontend developer takes on a communications load too
+- id: frontend_2
+  role: frontend_developer
+  who:
+    - hire
+  start_date: 2024-04-01
+  fte: 1
+
+- id: sales_3
+  role: sales
+  who: 
+    - hire
+  start_date: 2024-04-01
+  fte: 1
 
 
 # only consider if we track on the high scenarios
