@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 # random.seed(30)
-scenario_list = load_scenarios("scenarios.test.yaml")
+scenario_list = load_scenarios("assumptions_test/scenarios.test.yaml")
 
 # template all scenarios
 for scenario in scenario_list:

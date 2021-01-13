@@ -12,7 +12,7 @@ from template.util import formatter
 plt.style.use("dark_background")
 
 # load scenarios
-with open("scenarios.yaml") as f:
+with open("../assumptions/scenarios.yaml") as f:
     scenario_list = yaml.load(f, Loader=yaml.FullLoader)
 
 start = date(2021, 1, 1)

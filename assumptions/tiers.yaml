@@ -1,8 +1,13 @@
 - id: low
+  # monthly revenue from tier
   value: 2_000
+  # upgrade the tier after a fixed number of months
   upgrade_after_months: 12
 - id: medium
+  # monthly revenue from tier
   value: 5_000
+  # upgrade the tier after a fixed number of months
   upgrade_after_months: 12
 - id: high
+  # monthly revenue from tier
   value: 10_000

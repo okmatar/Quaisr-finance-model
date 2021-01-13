@@ -8,9 +8,9 @@ def read_csv(fname):
 
 
 def position():
-    position_low = read_csv("scenarios/scenario_low/outputs/position.csv")
-    position_medium = read_csv("scenarios/scenario_medium/outputs/position.csv")
-    position_high = read_csv("scenarios/scenario_high/outputs/position.csv")
+    position_low = read_csv("scenarios/model/scenario_low/outputs/position.csv")
+    position_medium = read_csv("scenarios/model/scenario_medium/outputs/position.csv")
+    position_high = read_csv("scenarios/model/scenario_high/outputs/position.csv")
 
     fig = go.Figure()
     fig.add_trace(

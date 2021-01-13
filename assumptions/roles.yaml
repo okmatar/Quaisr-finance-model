@@ -4,23 +4,24 @@ overheads: 0.15
 roles:
   ceo:
     base: 100_000
-    bonus: 0.2
+    bonus: 0.3
   
   cto:
-    base: 90_000
+    base: 100_000
     bonus: 0.1
 
   cso:
-    base: 90_000
+    base: 100_000
     bonus: 0.1
 
   coo:
-    base: 90_000
+    base: 100_000
     bonus: 0.1
 
   chair:
     base: 25_000
     bonus: 0
+    
 
   machine_learning_engineer:
     base: 70_000
@@ -33,6 +34,10 @@ roles:
   # data_scientist:
   #   base: 70_000
   #   bonus: 0.1
+
+  product_manager:
+    base: 60_000
+    bonus: 0.1
 
   vp_sales:
     base: 60_000

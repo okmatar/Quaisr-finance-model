@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 # random.seed(30)
-scenario_list = load_scenarios("scenarios.yaml")
+scenario_list = load_scenarios("../assumptions/scenarios.yaml")
 
 # template all scenarios
 for scenario in scenario_list:
@@ -21,7 +21,7 @@ for scenario in scenario_list:
     shutil.rmtree(f"{to_rundir(scenario)}/assumptions")
 
     # add the top-level common assumptions
-    shutil.copytree("assumptions", f"{to_rundir(scenario)}/assumptions")
+    shutil.copytree("../assumptions", f"{to_rundir(scenario)}/assumptions")
 
     # clear pilots and subscriptions
     open(f"{to_rundir(scenario)}/assumptions/pilots.yaml", "w").close()
