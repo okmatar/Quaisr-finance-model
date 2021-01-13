@@ -41,5 +41,5 @@ plt.hlines(0, xmin=start, xmax=end, colors="red", linestyles="dashed", linewidth
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend()
 fig.autofmt_xdate()
-plt.savefig("scenarios.png", dpi=300, transparent=True)
+plt.savefig("scenarios.png", dpi=300)
 plt.savefig("scenarios.pdf", dpi=300)

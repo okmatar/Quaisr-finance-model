@@ -26,6 +26,21 @@ burn_rate = pd.read_csv("./outputs/annual_burn_rate.csv", index_col=0, parse_dat
 run_rate = pd.read_csv("./outputs/annual_run_rate.csv", index_col=0, parse_dates=True)
 
 
+def annotate_raises():
+    raises = revenue[revenue.kind == "raise"]
+    for _, r in raises.iterrows():
+        timestamp = pd.Timestamp(r.start_date)
+        plt.axvline(timestamp, color="r", linestyle="--")
+        plt.gca().annotate(
+            r.id,
+            (mdates.date2num(timestamp), 1_000_000),
+            xytext=(10, random.randrange(10, 20)),
+            textcoords="offset points",
+            arrowprops=dict(arrowstyle="-|>", linewidth=0.5),
+            fontsize=6,
+        )
+
+
 # visualisation
 fig = plt.figure()
 plt.plot(revenue.index, revenue.cumulative, label="revenue")
@@ -33,6 +48,7 @@ plt.plot(costs.index, costs.cumulative, label="costs")
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend()
 plt.xlim(start, end)
+annotate_raises()
 fig.autofmt_xdate()
 plt.savefig("outputs/sources.png", dpi=300)
 plt.savefig("outputs/sources.pdf")
@@ -43,6 +59,7 @@ plt.plot(burn_rate.index, burn_rate.value, label="annual burn rate")
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend()
 plt.xlim(start, end)
+annotate_raises()
 fig.autofmt_xdate()
 plt.savefig("outputs/annual_burn_rate.png", dpi=300)
 plt.savefig("outputs/annual_burn_rate.pdf")
@@ -52,12 +69,11 @@ plt.plot(run_rate.index, run_rate.value, label="annual run rate")
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend()
 plt.xlim(start, end)
+annotate_raises()
 fig.autofmt_xdate()
 plt.savefig("outputs/annual_run_rate.png", dpi=300)
 plt.savefig("outputs/annual_run_rate.pdf")
 
-
-# %%
 
 fig = plt.figure()
 plt.plot(position.index, position.cumulative, label="position")
@@ -118,6 +134,8 @@ plt.gca().xaxis.set_major_locator(years)
 
 plt.grid(linestyle="--", linewidth=0.5)
 plt.ylim(top=2e6)
+
+annotate_raises()
 
 plt.savefig("outputs/position.png", dpi=300)
 plt.savefig("outputs/position.pdf")

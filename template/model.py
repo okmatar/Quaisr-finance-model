@@ -196,7 +196,9 @@ costs = pd.DataFrame(cost_list).set_index("month")
 # determine the cumulative costs
 costs["cumulative"] = costs.value.cumsum()
 
-position = pd.concat([revenue, costs], axis=0).drop(columns=["cumulative"]).sort_index()
+position = (
+    pd.concat([revenue, costs], axis=0).drop(columns=["cumulative", "age"]).sort_index()
+)
 
 # save raw data before we do any aggregation
 position_raw = position.copy()
